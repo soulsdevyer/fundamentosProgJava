@@ -1,5 +1,3 @@
-package Misc;
-
 import java.util.Scanner;
 
 /**
@@ -14,19 +12,21 @@ public class FindNPrimes {
      * @param args Argumentos de línea de comandos (no utilizados)
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);  // Crea un objeto Scanner para leer la entrada del usuario
         System.out.println("Enter the number of prime numbers to find:");
-        int limit = scanner.nextInt();
-        int count = 0;
+        int limit = scanner.nextInt();  // Lee la cantidad de números primos a encontrar
+        int count = 0;  // Contador de números primos encontrados
 
+        // Bucle que encuentra números primos hasta alcanzar el límite especificado
         for (int number = 2; count < limit; number++) {
+            // Verifica si el número es primo
             if (isPrime(number)) {
-                System.out.println(number);
-                count++;
+                System.out.println(number);  // Imprime el número primo
+                count++;  // Incrementa el contador de números primos
             }
         }
 
-        scanner.close();
+        scanner.close();  // Cierra el Scanner para liberar recursos
     }
 
     /**
@@ -37,17 +37,19 @@ public class FindNPrimes {
      * @return true si el número es primo, false en caso contrario
      */
     public static boolean isPrime(int number) {
+        // Si el número es menor o igual a 1, no es primo
         if (number <= 1) {
             return false;
         }
 
         // Versión optimizada usando la raíz cuadrada
+        // Solo verificamos divisores hasta la raíz cuadrada del número
         for (int i = 2; i <= Math.sqrt(number); i++) {
-            if (number % i == 0) {
+            if (number % i == 0) {  // Si el número es divisible por i, no es primo
                 return false;
             }
         }
 
-        return true;
+        return true;  // Si no se encontró ningún divisor, el número es primo
     }
 }
