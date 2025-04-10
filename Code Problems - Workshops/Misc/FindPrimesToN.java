@@ -1,5 +1,3 @@
-package Misc;
-
 import java.util.Scanner;
 
 /**
@@ -15,18 +13,23 @@ public class FindPrimesToN {
      * @param args Argumentos de línea de comandos (no utilizados)
      */
     public static void main(String[] args) {
+        // Se crea un objeto Scanner para leer la entrada del usuario
         Scanner scanner = new Scanner(System.in);
+
+        // Solicita al usuario el límite superior para encontrar números primos
         System.out.println("Enter the upper limit to find prime numbers:");
-        int limit = scanner.nextInt();
+        int limit = scanner.nextInt();  // Lee el límite superior
 
         // Itera desde 2 hasta el límite para encontrar números primos
         for (int number = 2; number <= limit; number++) {
+            // Verifica si el número actual es primo
             if (isPrime(number)) {
-                System.out.println(number);
+                System.out.println(number);  // Imprime el número primo
             }
         }
 
-        scanner.close(); // Cierra el scanner después de su uso
+        // Cierra el scanner después de su uso para liberar recursos
+        scanner.close();
     }
 
     /**
@@ -37,17 +40,21 @@ public class FindPrimesToN {
      * @return true si el número es primo, false en caso contrario
      */
     public static boolean isPrime(int number) {
+        // Si el número es menor o igual a 1, no es primo
         if (number <= 1) {
-            return false; // Los números menores o iguales a 1 no son primos
+            return false;
         }
 
         // Optimización: Solo verifica hasta la raíz cuadrada del número
         for (int i = 2; i <= Math.sqrt(number); i++) {
+            // Si el número es divisible por cualquier número entre 2 y la raíz cuadrada de 'number'
+            // significa que no es primo
             if (number % i == 0) {
-                return false; // Si es divisible por otro número, no es primo
+                return false;
             }
         }
 
-        return true; // Si no se encontró divisor, es primo
+        // Si no se encontró ningún divisor, el número es primo
+        return true;
     }
 }

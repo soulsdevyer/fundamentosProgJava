@@ -1,11 +1,9 @@
-package Arrays;
-
 import java.util.Scanner;
 
 /**
- * Clase que implementa dos métodos de búsqueda en un array: búsqueda lineal y
+ * Clase que implementa dos métodos de búsqueda en un arreglo: búsqueda lineal y
  * búsqueda binaria.
- * Permite al usuario buscar números en un array ordenado y compara los
+ * Permite al usuario buscar números en un arreglo ordenado y compara los
  * resultados.
  */
 public class FindNNumberInArray {
@@ -20,22 +18,26 @@ public class FindNNumberInArray {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean continueExecution = true;
-        // Array ordenado de números para realizar las búsquedas
+        // Arreglo ordenado de números para realizar las búsquedas
         int[] numbers = { 1, 2, 2, 3, 4, 5, 11, 12, 13, 17, 31, 40, 42, 99, 139, 1830 };
 
+        // Bucle para permitir múltiples búsquedas
         while (continueExecution) {
-            System.out.println("Enter the number to search for in the array: ");
+            System.out.println("Ingresa el número a buscar en el arreglo: ");
             int target = scanner.nextInt();
 
+            // Realiza la búsqueda binaria
             int result = binarySearch(numbers, target);
 
+            // Muestra el resultado de la búsqueda
             if (result != -1) {
-                System.out.println("Number " + target + " found at position: " + result);
+                System.out.println("Número " + target + " encontrado en la posición: " + result);
             } else {
-                System.out.println("Number " + target + " not found in the array.");
+                System.out.println("Número " + target + " no encontrado en el arreglo.");
             }
 
-            System.out.println("Enter 1 to continue searching, or any other number to stop");
+            // Pregunta al usuario si desea continuar
+            System.out.println("Ingresa 1 para continuar buscando, o cualquier otro número para detenerse");
             int option = scanner.nextInt();
             if (option != 1) {
                 continueExecution = false;
@@ -46,44 +48,55 @@ public class FindNNumberInArray {
 
     /**
      * Implementa el algoritmo de búsqueda lineal.
-     * Complejidad temporal: O(n) - donde n es el tamaño del array
+     * Complejidad temporal: O(n) - donde n es el tamaño del arreglo.
      * 
-     * @param numbers Array donde se realizará la búsqueda
+     * @param numbers Arreglo donde se realizará la búsqueda
      * @param target  Número a buscar
      * @return Índice donde se encuentra el número, -1 si no se encuentra
      */
     public static int linearSearch(int[] numbers, int target) {
+        // Recorremos el arreglo de principio a fin
         for (int i = 0; i < numbers.length; i++) {
+            // Si encontramos el número, devolvemos el índice
             if (numbers[i] == target) {
                 return i;
             }
         }
+        // Si no encontramos el número, devolvemos -1
         return -1;
     }
 
     /**
      * Implementa el algoritmo de búsqueda binaria.
-     * Requiere que el array esté ordenado.
-     * Complejidad temporal: O(log n) - donde n es el tamaño del array
+     * Requiere que el arreglo esté ordenado.
+     * Complejidad temporal: O(log n) - donde n es el tamaño del arreglo.
      * 
-     * @param numbers Array ordenado donde se realizará la búsqueda
+     * @param numbers Arreglo ordenado donde se realizará la búsqueda
      * @param target  Número a buscar
      * @return Índice donde se encuentra el número, -1 si no se encuentra
      */
     public static int binarySearch(int[] numbers, int target) {
+        // Definimos los índices izquierdo y derecho para la búsqueda
         int left = 0;
         int right = numbers.length - 1;
 
+        // Mientras el rango de búsqueda sea válido
         while (left <= right) {
+            // Calculamos el punto medio del arreglo
             int mid = (left + right) / 2;
+
+            // Si encontramos el número en el medio, devolvemos el índice
             if (numbers[mid] == target) {
                 return mid;
             } else if (target < numbers[mid]) {
+                // Si el número es menor, buscamos en la mitad izquierda
                 right = mid - 1;
             } else {
+                // Si el número es mayor, buscamos en la mitad derecha
                 left = mid + 1;
             }
         }
+        // Si no encontramos el número, devolvemos -1
         return -1;
     }
 }
