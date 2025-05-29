@@ -4,12 +4,10 @@ import RPG_Project.Characters.Character;
 
 public class Goblin extends Enemy {
 
-    // Constructor
     public Goblin() {
-        super("Goblin", 50, 12); // Salud baja, daño moderado
+        super("Goblin", 50, 10);
     }
 
-    // Ataque personalizado del Goblin
     @Override
     public void attack(Character character) {
         character.receiveDamage(getAttackPower());

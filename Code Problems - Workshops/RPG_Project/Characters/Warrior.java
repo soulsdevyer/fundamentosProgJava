@@ -6,16 +6,14 @@ public class Warrior extends Character {
 
     // Constructor
     public Warrior(String name) {
-        super(name, 100, 30); // Por ejemplo: 100 salud máxima, 30 maná máxima
+        super(name, 120, 30);
     }
 
-    // Daño base del ataque normal del guerrero
     @Override
     protected int getBaseAttackDamage() {
         return 20;
     }
 
-    // Habilidad especial: poderoso ataque cuerpo a cuerpo
     @Override
     public void specialAbility(Enemy enemy) {
         int manaCost = 10;

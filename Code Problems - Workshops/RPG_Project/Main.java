@@ -29,61 +29,72 @@ public class Main {
         System.out.println("2. Mago");
         System.out.println("3. Arquero");
         System.out.print("Opción: ");
-        int opcion = scanner.nextInt();
+        int option = scanner.nextInt();
         scanner.nextLine(); // Limpiar buffer
 
         System.out.print("Escribe el nombre de tu personaje: ");
-        String nombre = scanner.nextLine();
+        String playerName = scanner.nextLine();
 
         // Crear personaje
-        Character jugador;
-        switch (opcion) {
+        Character player;
+        switch (option) {
             case 1:
-                jugador = new Warrior(nombre);
+                player = new Warrior(playerName);
                 break;
             case 2:
-                jugador = new Mage(nombre);
+                player = new Mage(playerName);
                 break;
             case 3:
-                jugador = new Archer(nombre);
+                player = new Archer(playerName);
                 break;
             default:
                 System.out.println("Opción inválida. Se seleccionará Guerrero por defecto.");
-                jugador = new Warrior(nombre);
+                player = new Warrior(playerName);
                 break;
         }
 
-        System.out.println("Has elegido: " + jugador.getClass().getSimpleName());
+        System.out.println("Has elegido: " + translateClass(player.getClass().getSimpleName()));
 
-        // Asignar ítems aleatorios
-        int pocionesSalud = random.nextInt(4); // 0 a 3
-        int pocionesMana = random.nextInt(4); // 0 a 3
-        List<Item> inventario = new ArrayList<>();
-        for (int i = 0; i < pocionesSalud; i++) {
-            inventario.add(new HealthPotion());
+        int healthPotions = random.nextInt(4); // 0 a 3
+        int manaPotions = random.nextInt(4); // 0 a 3
+        List<Item> inventory = new ArrayList<>();
+        for (int i = 0; i < healthPotions; i++) {
+            inventory.add(new HealthPotion());
         }
-        for (int i = 0; i < pocionesMana; i++) {
-            inventario.add(new ManaPotion());
+        for (int i = 0; i < manaPotions; i++) {
+            inventory.add(new ManaPotion());
         }
 
-        // Generar enemigos
-        List<Enemy> enemigos = new ArrayList<>();
-        int cantidadEnemigos = 3; // Número fijo para demo
-        for (int i = 0; i < cantidadEnemigos; i++) {
-            int tipo = random.nextInt(3); // 0 = Goblin, 1 = Orc, 2 = Dragon
-            switch (tipo) {
-                case 0 -> enemigos.add(new Goblin());
-                case 1 -> enemigos.add(new Orc());
-                case 2 -> enemigos.add(new Dragon());
+        List<Enemy> enemies = new ArrayList<>();
+        int totalEnemies = Math.max(1, random.nextInt(3));
+        for (int i = 0; i < totalEnemies; i++) {
+            int enemyClass = random.nextInt(3);
+            switch (enemyClass) {
+                case 0 -> enemies.add(new Goblin());
+                case 1 -> enemies.add(new Orc());
+                case 2 -> enemies.add(new Dragon());
             }
         }
 
-        System.out.println("Te enfrentarás a " + enemigos.size() + " enemigo(s). ¡Prepárate para la batalla!");
+        System.out.println("Te enfrentarás a " + enemies.size() + " enemigo(s). ¡Prepárate para la batalla!");
+        for (Enemy enemy : enemies) {
+            System.out.println("Enemigo: " + translateClass(enemy.getClass().getSimpleName()));
+        }
 
-        // Instanciar y ejecutar BattleManager
-        BattleManager manager = new BattleManager(jugador, enemigos, inventario);
+        BattleManager manager = new BattleManager(player, enemies, inventory);
         manager.startBattle();
 
         scanner.close();
+    }
+
+    private static String translateClass(String className) {
+        return switch (className) {
+            case "Warrior" -> "Guerrero";
+            case "Mage" -> "Mago";
+            case "Archer" -> "Arquero";
+            case "Orc" -> "Orco";
+            case "Dragon" -> "Dragón";
+            default -> className;
+        };
     }
 }

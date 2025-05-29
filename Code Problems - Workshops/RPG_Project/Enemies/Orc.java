@@ -6,10 +6,9 @@ public class Orc extends Enemy {
 
     // Constructor
     public Orc() {
-        super("Orco", 80, 20); // Más salud y daño alto
+        super("Orco", 100, 20); // Más salud y daño alto
     }
 
-    // Ataque personalizado del Orco
     @Override
     public void attack(Character character) {
         character.receiveDamage(getAttackPower());

@@ -4,18 +4,15 @@ import RPG_Project.Enemies.Enemy;
 
 public class Archer extends Character {
 
-    // Constructor
     public Archer(String name) {
-        super(name, 90, 40); // Salud y maná intermedios entre Warrior y Mage
+        super(name, 90, 60);
     }
 
-    // Daño base del ataque normal del arquero
     @Override
     protected int getBaseAttackDamage() {
         return 18;
     }
 
-    // Habilidad especial: golpe crítico a distancia
     @Override
     public void specialAbility(Enemy enemy) {
         int manaCost = 12;

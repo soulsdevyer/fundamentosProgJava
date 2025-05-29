@@ -10,13 +10,12 @@ public class Dragon extends Enemy {
 
     // Constructor
     public Dragon() {
-        super("Dragón", 120, 25); // Salud muy alta, daño base alto
+        super("Dragón", 200, 40);
     }
 
-    // Ataque del dragón: posibilidad de usar aliento de fuego
     @Override
     public void attack(Character character) {
-        boolean useFireBreath = random.nextBoolean(); // 50% de probabilidad
+        boolean useFireBreath = random.nextBoolean(); // Tiene una probabilidad del 50% de usar aliento de fuego
 
         if (useFireBreath) {
             int fireDamage = getAttackPower() + 15;

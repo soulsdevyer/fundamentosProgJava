@@ -44,9 +44,9 @@ public class BattleManager {
         System.out.println("\nTu turno:");
         System.out.println("1. Atacar");
         System.out.println("2. Ver estado");
-        System.out.println("3. Usar habilidad adicional");
+        System.out.println("3. Usar habilidad especial");
         if (!inventory.isEmpty()) {
-            System.out.println("4. Usar ítem");
+            System.out.println("4. Usar item");
             System.out.println("5. Pausar el juego");
         } else {
             System.out.println("4. Pausar el juego");
@@ -54,17 +54,17 @@ public class BattleManager {
 
         System.out.print("Elige una opción: ");
         int option = scanner.nextInt();
-        scanner.nextLine(); // limpiar buffer
+        scanner.nextLine();
 
         if (!inventory.isEmpty()) {
             switch (option) {
                 case 1 -> attackEnemy();
                 case 2 -> {
                     viewStatus();
-                    playerTurn(); // permitir que el jugador continúe su turno
+                    playerTurn();
                 }
                 case 3 -> useSpecialAbility();
-                case 4 -> useItem(); // Nueva funcionalidad
+                case 4 -> useItem();
                 case 5 -> pauseGame();
                 default -> {
                     System.out.println("Opción inválida.");
@@ -102,33 +102,35 @@ public class BattleManager {
 
     private void useItem() {
         if (inventory.isEmpty()) {
-            System.out.println("No tienes ítems disponibles.");
+            System.out.println("No tienes items disponibles.");
             return;
         }
 
-        System.out.println("Ítems disponibles:");
+        System.out.println("Items disponibles:");
         for (int i = 0; i < inventory.size(); i++) {
             Item item = inventory.get(i);
             System.out.println((i + 1) + ". " + item.getName() + " - " + item.getDescription());
         }
 
-        System.out.print("Elige un ítem: ");
+        System.out.print("Elige un item: ");
         int choice = scanner.nextInt();
         scanner.nextLine();
 
         if (choice < 1 || choice > inventory.size()) {
             System.out.println("Selección inválida.");
-            useItem(); // Volver a intentar
+            useItem();
             return;
         }
 
         Item selectedItem = inventory.remove(choice - 1);
         selectedItem.use(player);
 
-        // El turno termina después de usar un ítem, y los enemigos atacan
         enemiesTurn();
     }
 
+    // Uso de GitHub Copilot: Desde VS Code se utilizó la IA para detectar cuándo
+    // todos los enemigos han sido derrotados con el método
+    // .stream().noneMatch(Enemy::isAlive)
     public boolean isBattleOver() {
         if (!player.isAlive())
             return true;
@@ -136,8 +138,6 @@ public class BattleManager {
         boolean allEnemiesDefeated = enemies.stream().noneMatch(Enemy::isAlive);
         return allEnemiesDefeated;
     }
-
-    // Métodos auxiliares
 
     private void attackEnemy() {
         Enemy target = chooseTarget();
@@ -160,7 +160,6 @@ public class BattleManager {
         System.out.println("Salud: " + player.getHealth() + " / " + player.getMaxHealth());
         System.out.println("Maná: " + player.getMana() + " / " + player.getMaxMana());
         System.out.println("Estado: " + (player.isAlive() ? "Vivo" : "Muerto"));
-        // Mostrar más detalles si hay inventario en futuras versiones
 
         System.out.println("=== ENEMIGOS ACTIVOS ===");
         for (Enemy enemy : enemies) {
@@ -169,6 +168,9 @@ public class BattleManager {
         }
     }
 
+    // Con GitHub Copilot desde VS Code se implementó el método stream().filter para
+    // llenar una nueva lista de enemigos únicamente con los enemigos que están
+    // vivos, para que el jugador no pueda seleccionar enemigos muertos
     private Enemy chooseTarget() {
         List<Enemy> aliveEnemies = enemies.stream().filter(Enemy::isAlive).toList();
         if (aliveEnemies.isEmpty())
@@ -181,13 +183,13 @@ public class BattleManager {
         }
 
         int choice = scanner.nextInt();
-        scanner.nextLine(); // limpiar buffer
+        scanner.nextLine();
         if (choice < 1 || choice > aliveEnemies.size()) {
             System.out.println("Selección inválida.");
             return chooseTarget();
         }
 
-        return aliveEnemies.get(choice - 1);
+        return aliveEnemies.get(choice); // Se resta 1 ya que los indices de enemies comienzan en 0
     }
 
     private void pauseGame() {
