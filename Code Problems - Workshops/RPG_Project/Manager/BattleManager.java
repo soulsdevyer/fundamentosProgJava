@@ -189,7 +189,7 @@ public class BattleManager {
             return chooseTarget();
         }
 
-        return aliveEnemies.get(choice); // Se resta 1 ya que los indices de enemies comienzan en 0
+        return aliveEnemies.get(choice - 1); // Se resta 1 ya que los indices de enemies comienzan en 0
     }
 
     private void pauseGame() {
