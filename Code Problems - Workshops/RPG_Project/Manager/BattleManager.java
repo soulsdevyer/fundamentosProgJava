@@ -193,7 +193,10 @@ public class BattleManager {
     }
 
     private void pauseGame() {
-        System.out.println("Juego pausado. (Función de guardado pendiente)");
-        System.exit(0); // Por ahora, salir del juego
+        GameState state = new GameState(player, enemies, inventory);
+        SaveSystem.saveGame(state);
+        System.out.println("Juego pausado. Puedes reanudar más tarde.");
+        System.exit(0);
     }
+
 }

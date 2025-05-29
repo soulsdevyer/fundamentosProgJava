@@ -1,9 +1,11 @@
 package RPG_Project.Characters;
 
+import java.io.Serializable;
+
 import RPG_Project.Enemies.Enemy;
 import RPG_Project.Items.Item;
 
-public abstract class Character {
+public abstract class Character implements Serializable {
 
     private String name;
     private int health;

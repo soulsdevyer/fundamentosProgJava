@@ -16,6 +16,8 @@ import RPG_Project.Items.Item;
 import RPG_Project.Items.HealthPotion;
 import RPG_Project.Items.ManaPotion;
 import RPG_Project.Manager.BattleManager;
+import RPG_Project.Manager.GameState;
+import RPG_Project.Manager.SaveSystem;
 
 public class Main {
 
@@ -24,13 +26,29 @@ public class Main {
         Random random = new Random();
 
         System.out.println("=== Bienvenido al Simulador de Batallas RPG ===");
+
+        System.out.print("¿Deseas cargar la última partida guardada? (s/n): ");
+        String respuesta = scanner.nextLine();
+
+        if (respuesta.equalsIgnoreCase("s")) {
+            GameState estado = SaveSystem.loadGame();
+            if (estado != null) {
+                BattleManager manager = new BattleManager(
+                        estado.getPlayer(),
+                        estado.getEnemies(),
+                        estado.getInventory());
+                manager.startBattle();
+                return;
+            }
+        }
+
         System.out.println("Elige tu personaje:");
         System.out.println("1. Guerrero");
         System.out.println("2. Mago");
         System.out.println("3. Arquero");
         System.out.print("Opción: ");
         int option = scanner.nextInt();
-        scanner.nextLine(); // Limpiar buffer
+        scanner.nextLine();
 
         System.out.print("Escribe el nombre de tu personaje: ");
         String playerName = scanner.nextLine();
@@ -74,6 +92,7 @@ public class Main {
                 case 1 -> enemies.add(new Orc());
                 case 2 -> enemies.add(new Dragon());
             }
+
         }
 
         System.out.println("Te enfrentarás a " + enemies.size() + " enemigo(s). ¡Prepárate para la batalla!");
