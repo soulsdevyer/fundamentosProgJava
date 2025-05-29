@@ -1,5 +1,3 @@
-package Misc;
-
 import java.util.Scanner;
 
 /**
@@ -21,16 +19,24 @@ public class IVA {
      * @param args Argumentos de línea de comandos (no utilizados)
      */
     public static void main(String[] args) {
+        // Se crea un objeto Scanner para leer la entrada del usuario
         Scanner scanner = new Scanner(System.in);
 
+        // Solicita al usuario que ingrese la categoría del producto
         System.out.println("Enter product category:");
-        String category = scanner.nextLine();
+        String category = scanner.nextLine(); // Lee la categoría como una cadena de texto
 
+        // Solicita al usuario que ingrese el precio del producto
         System.out.println("Enter product price:");
-        float price = scanner.nextFloat();
+        float price = scanner.nextFloat(); // Lee el precio del producto
 
+        // Llama al método calculateVAT para calcular si el producto está exento de IVA
         String result = calculateVAT(category, price);
+        
+        // Imprime el resultado
         System.out.println(result);
+
+        // Cierra el scanner después de usarlo
         scanner.close();
     }
 
@@ -42,8 +48,10 @@ public class IVA {
      * @return Mensaje indicando si el producto está exento de IVA
      */
     public static String calculateVAT(String category, float price) {
+        // Muestra el precio ingresado
         System.out.println("Entered value: " + price);
 
+        // Se evalúa la categoría del producto y se calcula si está exento de IVA
         switch (category) {
             case "Appliances":
             case "Goods":
@@ -57,6 +65,7 @@ public class IVA {
             case "SchoolSupplies":
                 return evaluateExemption(price, SCHOOL_SUPPLIES_LIMIT);
             default:
+                // Si la categoría no es válida, se retorna un mensaje indicando que se debe pagar IVA
                 return "Invalid category. You must pay VAT for this product";
         }
     }
@@ -69,6 +78,7 @@ public class IVA {
      * @return Mensaje indicando si está exento o no
      */
     private static String evaluateExemption(float price, double limit) {
+        // Si el precio es menor o igual al límite, el producto está exento de IVA
         return price <= limit ? "Your product is VAT exempt" : "You must pay VAT for this product";
     }
 }

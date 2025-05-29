@@ -1,3 +1,4 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/soulsdevyer/fundamentosProgJava)
 # Ejemplos de Código en Java para Estudiantes
 
 ¡Hola! Aquí encontrarás ejemplos prácticos de código en Java, pensados especialmente para estudiantes universitarios que estén aprendiendo el lenguaje. El objetivo es brindar ejemplos de referencia, de modo que te familiarices con la estructura, la lógica y las mejores prácticas.
