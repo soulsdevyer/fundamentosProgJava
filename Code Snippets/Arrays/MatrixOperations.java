@@ -1,6 +1,5 @@
 
 import java.util.Random;
-import java.util.Arrays;
 
 /**
  * Class that implements matrix generation and display operations.
